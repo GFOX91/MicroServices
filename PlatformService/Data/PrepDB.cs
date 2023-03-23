@@ -1,20 +1,44 @@
-﻿namespace PlatformService.Data;
+﻿using PlatformService.Models;
+
+namespace PlatformService.Data;
 
 /// <summary>
 /// Used to setup, seed and test the Database
 /// </summary>
 public static class PrepDB
 {
+    /// <summary>
+    /// Retrieves the service scopes calls method to seed data utilizing DB context
+    /// </summary>
     public static void PrepPopulation(this WebApplication app)
     {
         using (var serviceScope = app.Services.CreateScope())
         {
-
+            SeedData(serviceScope.ServiceProvider.GetService<AppDbContext>());
         }
     }
 
+    /// <summary>
+    /// Uses the AppDbContext in order to seed the DB with data if none already exists
+    /// </summary>
+    /// <param name="context"></param>
     private static void SeedData(AppDbContext context)
     {
+        if (!context.Platforms.Any()) 
+        {
+            Console.WriteLine("--> Seeding Data...");
 
+            context.Platforms.AddRange(
+                new Platform() { Name = "Dot Net", Publisher ="Microsoft", Cost="Free"},
+                new Platform() { Name = "SQL Server Express", Publisher ="Microsoft", Cost="Free"},
+                new Platform() { Name = "Kubernetes", Publisher ="Cloud NAtive Computing Foundation", Cost="Free"}
+            );
+
+            context.SaveChanges();
+        }
+        else
+        {
+            Console.WriteLine("--> We already have data");
+        }
     }
 }
