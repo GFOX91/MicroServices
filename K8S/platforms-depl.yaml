@@ -6,7 +6,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app:platformservice
+      app: platformservice
   template:
     metadata:
       labels:
