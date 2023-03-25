@@ -66,6 +66,6 @@ public class PlatformsController : ControllerBase
             Console.WriteLine($"--. could not send synchronously: {ex.Message}");
         }
 
-        return CreatedAtRoute(nameof(GetPlatformById),new { platformReadDto.Id}, platformReadDto);
+        return CreatedAtAction(nameof(GetPlatformById),new { platformReadDto.Id}, platformReadDto);
     }
 }
