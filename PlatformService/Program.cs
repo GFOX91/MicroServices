@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Data;
+using PlatformService.SyncDataServices.Http;
 
 namespace PlatformService
 {
@@ -22,6 +23,8 @@ namespace PlatformService
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IPlatormRepo, PlatformRepo>();
+
+            builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 
             var app = builder.Build();
 
