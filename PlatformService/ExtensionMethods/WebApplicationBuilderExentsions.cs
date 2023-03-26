@@ -12,17 +12,17 @@ public static class WebApplicationBuilderExentsions
     /// <param name="builder">A Microsoft.AspNetCore.Builder.WebApplicationBuilder</param>
     public static void ConfigureDatabase(this WebApplicationBuilder builder)
     {
-        if (builder.Environment.IsProduction())
-        {
+        //if (builder.Environment.IsProduction())
+        //{
             Console.WriteLine("--> using SQL Server DB");
             builder.Services.AddDbContext<AppDbContext>(opt =>
                 opt.UseSqlServer(builder.Configuration.GetValue<string>("ConnectionStrings:PlatformsConn")));
-        }
-        else
-        {
-            Console.WriteLine("--> using InMem DB");
-            builder.Services.AddDbContext<AppDbContext>(opt =>
-                opt.UseInMemoryDatabase("InMemoryDB"));
-        }
+        //}
+        //else
+        //{
+        //    Console.WriteLine("--> using InMem DB");
+        //    builder.Services.AddDbContext<AppDbContext>(opt =>
+        //        opt.UseInMemoryDatabase("InMemoryDB"));
+        //}
     }
 }
