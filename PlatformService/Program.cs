@@ -13,9 +13,6 @@ namespace PlatformService
 
             // Add services to the container.
 
-            builder.Services.AddDbContext<AppDbContext>(opt =>
-            opt.UseInMemoryDatabase("InMemoryDB"));
-
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -27,6 +24,19 @@ namespace PlatformService
             builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 
             var app = builder.Build();
+
+            if (app.Environment.IsProduction())
+            {
+                Console.WriteLine("--> using SQL Server DB");
+                builder.Services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseSqlServer(builder.Configuration.GetValue<string>("ConnectionStrings:PlatformsConn")));
+            }
+            else
+            {
+                Console.WriteLine("--> using InMem DB");
+                builder.Services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseInMemoryDatabase("InMemoryDB"));
+            }
 
             app.PrepPopulation();
 
