@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Data;
+using PlatformService.ExtensionMethods;
 using PlatformService.SyncDataServices.Http;
 
 namespace PlatformService
@@ -23,20 +24,9 @@ namespace PlatformService
 
             builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 
-            var app = builder.Build();
+            builder.ConfigureDatabase();
 
-            if (app.Environment.IsProduction())
-            {
-                Console.WriteLine("--> using SQL Server DB");
-                builder.Services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseSqlServer(builder.Configuration.GetValue<string>("ConnectionStrings:PlatformsConn")));
-            }
-            else
-            {
-                Console.WriteLine("--> using InMem DB");
-                builder.Services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseInMemoryDatabase("InMemoryDB"));
-            }
+            var app = builder.Build();
 
             app.PrepPopulation();
 
