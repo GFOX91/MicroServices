@@ -1,4 +1,5 @@
 
+using CommandsService.AsyncDataServices;
 using Microsoft.EntityFrameworkCore;
 using PlatformService.AsyncDataServices;
 using PlatformService.Data;
@@ -18,6 +19,7 @@ namespace PlatformService
             builder.ConfigureDatabase();
 
             builder.Services.AddControllers();
+            builder.Services.AddHostedService<MessageBusSubscriber>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

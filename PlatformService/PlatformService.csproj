@@ -28,4 +28,8 @@
     <None Include="C:\Users\Greg Fox\source\repos\PlatformService\PlatformService\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CommandsService\CommandsService.csproj" />
+  </ItemGroup>
+
 </Project>
