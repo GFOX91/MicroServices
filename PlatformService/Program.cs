@@ -28,7 +28,7 @@ namespace PlatformService
 
             var app = builder.Build();
 
-            app.PrepPopulation();
+            app.PrepPopulation(app.Environment.IsProduction());
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
