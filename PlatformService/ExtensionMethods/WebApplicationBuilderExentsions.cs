@@ -12,9 +12,7 @@ public static class WebApplicationBuilderExentsions
     /// <param name="builder">A Microsoft.AspNetCore.Builder.WebApplicationBuilder</param>
     public static void ConfigureDatabase(this WebApplicationBuilder builder)
     {
-        var app = builder.Build();
-
-        if (app.Environment.IsProduction())
+        if (builder.Environment.IsProduction())
         {
             Console.WriteLine("--> using SQL Server DB");
             builder.Services.AddDbContext<AppDbContext>(opt =>

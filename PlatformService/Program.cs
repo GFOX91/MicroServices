@@ -14,6 +14,8 @@ namespace PlatformService
 
             // Add services to the container.
 
+            builder.ConfigureDatabase();
+
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -23,8 +25,6 @@ namespace PlatformService
             builder.Services.AddScoped<IPlatormRepo, PlatformRepo>();
 
             builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
-
-            builder.ConfigureDatabase();
 
             var app = builder.Build();
 
