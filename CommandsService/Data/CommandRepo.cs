@@ -1,4 +1,5 @@
 ﻿using CommandsService.Models;
+using System;
 
 namespace CommandsService.Data;
 
@@ -11,6 +12,10 @@ public class CommandRepo : ICommandRepo
         _context = context;
     }
 
+    public bool ExternalPlatformExists(int externalPlatformId)
+    {
+        return _context.Platforms.Any(p => p.ExternalID == externalPlatformId);
+    }
 
     void ICommandRepo.CreateCommand(int platformId, Command command)
     {
