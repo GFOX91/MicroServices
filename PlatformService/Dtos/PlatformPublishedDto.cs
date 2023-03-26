@@ -3,7 +3,7 @@
 /// <summary>
 /// Used to send created/updated Platform data to message bus
 /// </summary>
-public class PlatformPublishDto
+public class PlatformPublishedDto
 {
     public int Id { get; set; }
     public string Name { get; set; }
